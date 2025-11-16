@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8"/>
+  <title>WEBGIS Kabupaten Kudus</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Leaflet SidePanel -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/maxwell-ilai/Leaflet.SidePanel/dist/leaflet-sidepanel.css">
+  <script src="https://cdn.jsdelivr.net/gh/maxwell-ilai/Leaflet.SidePanel/dist/leaflet-sidepanel.min.js"></script>
+
+  <!--Leaflet Legend-->
+  <link rel="stylesheet" href="https://consbio.github.io/Leaflet.HtmlLegend/dist/L.Control.HtmlLegend.css" />
+  <script src="https://consbio.github.io/Leaflet.HtmlLegend/dist/L.Control.HtmlLegend.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet.pattern@0.1.0/dist/leaflet.pattern.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/gh/makinacorpus/Leaflet.TextPath/leaflet.textpath.js"></script>
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+
+<!-- Leaflet Control Geocoder (OSM / Nominatim) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+<!--Style-->
+<link rel="stylesheet" href="css/style.css">
+
+
+<!-- shpjs untuk parsing shapefile -->
+<script src="https://unpkg.com/shpjs@latest/dist/shp.min.js">
+  
+   // Fungsi buat popup tabel dari properties
+  function bindPopupForFeature(feature, layer) {
+    if (feature.properties) {
+      let html = "<table border='1' style='border-collapse:collapse;width:100%'>";
+      for (let key in feature.properties) {
+        html += "<tr><th style='padding:2px 5px;background:#f0f0f0;text-align:left'>" 
+             + key + "</th><td style='padding:2px 5px'>" 
+             + feature.properties[key] + "</td></tr>";
+      }
+      html += "</table>";
+      layer.bindPopup(html);
+    }
+  }
+</script>
+
+  <div id="map"></div>
+
+  <div id="mySidepanelLeft" class="sidepanel">
+    <div class="sidepanel-inner-wrapper">
+
+<nav class="sidepanel-tabs-wrapper">
+  <ul class="sidepanel-tabs">
+
+    <li class="sidepanel-tab">
+      <a href="#" class="sidebar-tab-link" data-tab-link="tab-layer" title="Layers">
+        <img src="img/icon-layers.png" class="tab-icon">
+      </a>
+    </li>
+  </ul>
+</nav>
+
+
+    <div class="sidepanel-content-wrapper">
+      <div class="sidepanel-content">
+
+        <div class="sidepanel-tab-content" data-tab-content="tab-layer">
+          <h4>Layer Control</h4>
+          <div id="layerControl"></div>
+        </div>
+
+        <div class="sidepanel-tab-content" data-tab-content="tab-table">
+          <h4>Attribute Table</h4>
+          <div class="attribute-table-wrapper">
+            <table id="attributeTable">
+              <thead>
+                <tr id="table-head-row"></tr>
+              </thead>
+              <tbody id="table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    
+
+  </div>
+  <div class="sidepanel-toggle-container">
+    <button class="sidepanel-toggle-button" type="button"></button>
+  </div>
+  </div>
+
+  <!-- ==== DATA GEOJSON ==== -->
+  <script src="data/BatasKecamatan_LN.js"></script>
+  <script src="data/BatasKecamatan_AR.js"></script>
+  <script src="data/BidangTanah.js"></script>
+  <script src="data/Jalan.js"></script>
+  <script src="data/JaringanEnergi.js"></script>
+  <script src="data/JaringanIrigasi.js"></script>
+  <script src="data/KP2B.js"></script>
+  <script src="data/NilaiTanah.js"></script>
+  <script src="data/PolaRuang.js"></script>
+  <script src="data/SumberDayaAir_PT.js"></script>
+  <script src="data/ZonaInvest.js"></script>
+
+  <!-- ==== CONFIG & SCRIPT ==== -->
+  <script src="data/layerConfig.js"></script>
+  <script src="js/qgis_2_web_cleaned.js"></script>
+
+</body>
+</html>

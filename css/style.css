@@ -1,0 +1,204 @@
+/* ===== MAP LAYOUT ===== */
+html, body, #map {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#map {
+  position: relative; /* wajib agar panel berada di atas map */
+}
+
+.leaflet-top.leaflet-right {
+  margin-top: 10px; /* jarak dari atas supaya tepat di bawah search bar */
+}
+
+/* ===== SIDE PANEL FIX ===== */
+.sidepanel {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 320px;
+  z-index: 2000;
+  background: rgba(255, 255, 255, 0.35); /* lebih transparan */
+  backdrop-filter: blur(6px);             /* efek kaca buram */
+  -webkit-backdrop-filter: blur(6px);
+  border-right: 1px solid rgba(255,255,255,0.4);
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+/* content scroll */
+.sidepanel-inner-wrapper {
+  height: 100%;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+/* ===== TAB IKON STYLE ===== */
+.sidepanel-tabs-wrapper {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 8px 6px;
+  border-bottom: 1px solid rgba(221, 221, 221, 0.6);
+}
+
+.sidepanel-tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 14px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.sidepanel-tab a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.tab-icon {
+  width: 22px;
+  height: 22px;
+  opacity: 0.75;
+  transition: 0.2s;
+}
+
+.sidepanel-tab a:hover .tab-icon {
+  opacity: 2;
+  transform: scale(1.2);
+}
+
+.sidebar-tab-link.active {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.sidebar-tab-link.active .tab-icon {
+  opacity: 2;
+  transform: scale(1.2);
+}
+
+/* ===== POPUP CARD ===== */
+.popup-card {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 13px;
+  padding: 6px 8px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.popup-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.popup-label {
+  font-weight: 600;
+  color: #333;
+}
+
+.popup-value {
+  color: #555;
+  margin-left: 8px;
+  text-align: right;
+}
+
+/* reorder button */
+.reorder-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 4px;
+  color: #444;
+}
+.reorder-btn:hover { color: #000; }
+
+/* ===== LABEL KECAMATAN ===== */
+.label-kecamatan {
+  text-align: center;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #222;
+  pointer-events: none;
+}
+
+.label-bg {
+  background: rgba(255, 255, 255, 0.6);
+  padding: 2px 6px;
+  border-radius: 6px;
+  box-shadow: 0 0 2px rgba(0,0,0,0.2);
+}
+
+/* ===== STYLE LEAFLET LEGEND ===== */
+.legend-section {
+  margin-bottom: 10px;
+  font-family: Segoe UI, Arial, sans-serif;
+  font-size: 13px;
+}
+
+.legend-title {
+  margin-bottom: 4px;
+}
+
+.legend-items {
+  margin-left: 8px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.legend-symbol {
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+  display: inline-block;
+  border-radius: 3px;
+}
+
+.mini-legend {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 4px 6px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.mini-legend input[type="checkbox"] {
+  accent-color: #0078ff;
+}
+
+/* Hilangkan scroll ganda di sidepanel */
+.sidepanel-inner-wrapper {
+  overflow: hidden !important;
+  display: hidden;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidepanel-content-wrapper {
+  flex: 0;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+
+/* ===== LAYER CONTROL SCROLL ===== */
+#layerControl {
+  max-height: calc(100vh - 180px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
