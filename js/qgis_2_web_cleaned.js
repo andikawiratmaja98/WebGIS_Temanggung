@@ -121,25 +121,32 @@ function styleForFeature(feature, cfg, color) {
 
   // ======== STYLE POLYGON ========
  if (cfg.type === 'polygon') {
-  // === Kalau ada pattern ===
-  if (cfg.pattern === 'hatch-green' && (typeof L.StripePattern === 'function' || typeof L.pattern === 'function')) {
-  const Hatch = L.StripePattern || L.pattern;
-  const hatchPattern = new Hatch({
-    weight: 1.2,
-    spaceWeight: 4,
-    color: 'green',
-    spaceColor: 'transparent',
-    angle: 45
-  });
-  hatchPattern.addTo(map);
+  if (cfg.pattern === 'hatch-green' && typeof L.StripePattern === 'function') {
+    if (!cfg._hatchPattern) {
+      cfg._hatchPattern = new L.StripePattern({
+        weight: 1.2,
+        spaceWeight: 4,
+        color: 'green',
+        spaceColor: 'transparent',
+        angle: 45
+      }).addTo(map);
+    }
+
+    return {
+      color: 'green',
+      weight: 1,
+      fillPattern: cfg._hatchPattern,
+      fillOpacity: 0.5
+    };
+  }
 
   return {
-    color: 'green',
-    weight: 1,
-    fillPattern: hatchPattern,
-    fillOpacity: 0.5
+    color: cfg.strokeColor || '#333',
+    weight: cfg.weight || 1,
+    fillColor: color,
+    fillOpacity: typeof cfg.fillOpacity !== 'undefined' ? cfg.fillOpacity : 0.6
   };
-}
+
 
   // === Default polygon biasa ===
   return { 
@@ -345,6 +352,12 @@ onEachFeature: (f, l) => {
     }
   }).addTo(map);
 
+  geo.eachLayer(l => {
+  if (cfg.type === 'polygon' || cfg.type === 'line') {
+    const s = styleForFeature(l.feature, cfg);
+    if (s) l.setStyle(s);
+  }
+});
   // === Simpan referensi dan tampilkan ===
   layerRefs[name] = { cfg: cfg, geojson: geo, paneId: paneId };
   activeLayers[name] = geo;
@@ -432,7 +445,9 @@ function removeLayer(name) {
       const groupObj = window.groupedLayers[groupName];
       Object.keys(groupObj).forEach(layerName => {
         const cfg = groupObj[layerName];
-        addLayer(layerName, cfg);
+        map.whenReady(() => {
+        addLayer(layerName, cfg);  // ✅ dijalankan setelah peta siap
+      });
         const inputs = document.querySelectorAll('#layerControl input[type=checkbox]');
         inputs.forEach(inp => {
           if (inp.nextSibling && inp.nextSibling.textContent.trim() === layerName) inp.checked = true;
