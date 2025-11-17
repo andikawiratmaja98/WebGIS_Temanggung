@@ -186,6 +186,21 @@ window.groupedLayers = {
   ]
 },
 
+    "Bidang Tanah": {
+      type: "category",
+      field: "Kelas Luas",
+      categories: ["< 1 ha", "1 - 3 ha", "3 - 5 ha", "> 5 ha"],
+      colors: ["#c9eac2","#7bc77c","#2a924b","#00441b"],
+      legend: { field: "Kelas Luas", type: "category" },
+      showLegend: true,
+      data: window.json_BidangTanah,
+      popupFields: [
+        { field: "WADMKC", label: "Kecamatan"},
+        { field: "WADMKD", label: "Desa"},
+        { field: "Kelas Luas", label: "Kelas Luas"},
+      ]
+    },
+
     "Pola Ruang": {
       type: "category",
       field: "NAMOBJ",
